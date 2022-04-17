@@ -1,27 +1,33 @@
 <template>
+  <NavBar/>
   <div class="login">
     <h2>Log in</h2>
     <RandomQuote/>
     <form @submit.prevent="login" class="text-center">
-        <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email" /></div>
-        <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Password" /></div>
+        <div class="mb-3"><input v-model="email" class="form-control" type="email" name="email" placeholder="Email" /></div>
+        <div class="mb-3"><input v-model="password" class="form-control" type="password" name="password" placeholder="Password" /></div>
         <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Login</button></div>
     </form>
   </div>
 </template>
 
 <script>
+import NavBar from "@/components/NavBar.vue";
 import { Appwrite } from 'appwrite';
 import RandomQuote from '@/components/RandomQuote.vue';
 
 export default {
   name: 'Login',
   components: {
-    RandomQuote
+    RandomQuote,
+    NavBar
   },
   data() {
     return {
-      api: ""
+      api: "",
+      email: "",
+      password: ""
+
     }
   },
   created() {
@@ -32,6 +38,12 @@ export default {
   },
   methods: {
     login() {
+      let promise = this.api.account.createSession(this.email, this.password);
+      promise.then(() => {
+          this.$router.push('/');
+      }, function (error) {
+          console.log(error); // Failure
+      });
     }
   }
 }
