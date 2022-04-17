@@ -1,5 +1,4 @@
 <template>
-  <NavBar/>
   <div class="login">
     <h2>Log in</h2>
     <RandomQuote/>
@@ -12,22 +11,19 @@
 </template>
 
 <script>
-import NavBar from "@/components/NavBar.vue";
 import { Appwrite } from 'appwrite';
 import RandomQuote from '@/components/RandomQuote.vue';
 
 export default {
   name: 'Login',
   components: {
-    RandomQuote,
-    NavBar
+    RandomQuote
   },
   data() {
     return {
       api: "",
       email: "",
       password: ""
-
     }
   },
   created() {
@@ -39,8 +35,9 @@ export default {
   methods: {
     login() {
       let promise = this.api.account.createSession(this.email, this.password);
-      promise.then(() => {
-          this.$router.push('/');
+      promise.then(async () => {
+          await this.$router.push('/');
+          this.$router.go() 
       }, function (error) {
           console.log(error); // Failure
       });

@@ -40,8 +40,8 @@ export default {
         logOut() {
             let promise = this.api.account.deleteSession("current");
             promise.then(() => {
-                this.$router.push('/');
                 this.getAccount()
+                this.$router.push('/');
             }, function (error) {
                 console.log(error);
             });

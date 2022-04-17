@@ -1,5 +1,4 @@
 <template>
-  <NavBar/>
   <div class="register">
     <h2>Register</h2>
     <RandomQuote/>
@@ -13,7 +12,6 @@
 </template>
 
 <script>
-import NavBar from "@/components/NavBar.vue";
 import { Appwrite } from 'appwrite';
 import RandomQuote from '@/components/RandomQuote.vue';
 import Swal from 'sweetalert2';
@@ -21,8 +19,7 @@ import Swal from 'sweetalert2';
 export default {
   name: 'Register',
   components: {
-    RandomQuote,
-    NavBar
+    RandomQuote
   },
   data() {
     return {
