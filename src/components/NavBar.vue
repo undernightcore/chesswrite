@@ -21,6 +21,7 @@
 
 <script>
 import { Appwrite } from 'appwrite';
+import Swal from 'sweetalert2';
 
 export default {
     name: "NavBar",
@@ -42,8 +43,9 @@ export default {
             promise.then(() => {
                 this.getAccount()
                 this.$router.push('/');
+                this.popup("You have logged out succesfully", "success")
             }, function (error) {
-                console.log(error);
+                this.popup(error.message, "error")
             });
         },
         getAccount() {
@@ -55,6 +57,17 @@ export default {
                 console.log(error);
                 this.user = ""
             });
+        },
+        popup(message, status) {
+            Swal.fire({
+            icon: status,
+            title: message,
+            toast: true,
+            position: 'bottom-end',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true
+            })
         }
     }
 }

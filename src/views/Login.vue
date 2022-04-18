@@ -13,6 +13,7 @@
 <script>
 import { Appwrite } from 'appwrite';
 import RandomQuote from '@/components/RandomQuote.vue';
+import Swal from 'sweetalert2';
 
 export default {
   name: 'Login',
@@ -34,13 +35,28 @@ export default {
   },
   methods: {
     login() {
-      let promise = this.api.account.createSession(this.email, this.password);
-      promise.then(async () => {
-          await this.$router.push('/');
-          this.$router.go() 
-      }, function (error) {
-          console.log(error); // Failure
-      });
+      if (this.email && this.password) {
+          let promise = this.api.account.createSession(this.email, this.password);
+          promise.then(async () => {
+            await this.$router.push('/');
+            this.$router.go() 
+          }, (error) => {
+            this.popup(error.message, "error")
+          });
+      } else {
+        this.popup("Please don't leave any of the fields empty", "error");
+      }    
+    },
+    popup(message, status) {
+      Swal.fire({
+          icon: status,
+          title: message,
+          toast: true,
+          position: 'bottom-end',
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true
+      })
     }
   }
 }
