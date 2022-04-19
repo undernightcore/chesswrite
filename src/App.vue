@@ -36,5 +36,29 @@ export default {
   border-color: #f02e65 !important;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px #f02e65 !important;
 }
+.black-3c85d {
+  background-color: #FF9696 !important;
+}
+.white-1e1d7 {
+  background-color: #ffffff !important;
+}
+.board-b72b1 {
+  border: 4px solid #404040 !important;
+  box-sizing: content-box;
+  border-radius: 20px !important;
+}
+.square-a8 {
+  border-radius: 17px 0 0 0 !important;
+}
+.square-h8 {
+  border-radius: 0 17px 0 0 !important;
+}
+.square-a1 {
+  border-radius: 0 0 0 17px !important;
+}
+.square-h1 {
+  border-radius: 0 0 17px 0 !important;
+}
+
 
 </style>

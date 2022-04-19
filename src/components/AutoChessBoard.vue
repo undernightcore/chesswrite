@@ -1,5 +1,5 @@
 <template>
-    <div id="board1" style="width: 400px"></div>
+    <div id="board1"></div>
 </template>
 
 <script>
@@ -22,6 +22,7 @@ export default {
             position: 'start'
         }
         this.board = ChessBoard('board1', config);
+        window.addEventListener("resize", this.board.resize());
         this.moveAndReset()
     },
     methods: {
@@ -34,8 +35,19 @@ export default {
                 } else {
                     this.step++
                 }
-            }, 1000)
+            }, 1250)
         }
     }
 }
 </script>
+
+<style scoped>
+    #board1 {
+        width: 70%;
+    }
+    @media only screen and (max-width: 992px) {
+        #board1 {
+            width: 95%;
+        }
+    }
+</style>
