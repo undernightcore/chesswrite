@@ -1,6 +1,7 @@
 <template>
     <div v-if="user" class="dashboard container">
-        Hi
+        <h2>Actual <span class="principalColor">matches</span></h2>
+        <span @click="sendMatchRequest" class="h6 principalColor addMatch"><i class="fa-solid fa-plus"></i> Create new match</span>
     </div>
     <Loading v-else />
 </template>
@@ -44,5 +45,9 @@ export default {
     .dashboard {
         padding-top: 100px;
         padding-bottom: 100px;
+    }
+
+    .addMatch {
+        cursor: pointer
     }
 </style>
