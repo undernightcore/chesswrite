@@ -1,13 +1,13 @@
 <template>
-    <div v-if="user && friends.total" class="container friends">
+    <div v-if="user && friends?.length" class="container friends">
         <h2>People you can <span class="principalColor">trust</span></h2>
-        <h6 class="principalColor addFriend"><i class="fa-solid fa-plus"></i> Add new friend</h6>
+        <h6 @click="sendFriendRequest" class="principalColor addFriend"><i class="fa-solid fa-plus"></i> Add new friend</h6>
     </div>
-    <div v-else-if="friends.total == 0" class="nofriends">
+    <div v-else-if="friends?.length == 0" class="nofriends">
         <img src="@/assets/alone.svg" class="alone">
         <h5 class="mt-3">Sometimes It's <span class="principalColor">OK</span> to be alone.</h5>
         <h5>But in case you want a  <span class="principalColor">friend</span>.</h5>
-        <h5 class="principalColor text-decoration-underline addFriend"><i class="fa-solid fa-plus"></i> Add a new friend.</h5>
+        <h5 @click="sendFriendRequest" class="principalColor text-decoration-underline addFriend"><i class="fa-solid fa-plus"></i> Add new friend.</h5>
     </div>
     <Loading v-else />
 </template>
@@ -16,6 +16,7 @@
 import { Appwrite } from 'appwrite';
 import { Query } from "appwrite";
 import Loading from '@/components/Loading.vue'
+import Swal from 'sweetalert2';
 
 export default {
     name: 'Friends',
@@ -41,7 +42,7 @@ export default {
         return {
             api: "",
             user: "",
-            friends: ""
+            friends: null
         }
     },
     components: {
@@ -49,16 +50,63 @@ export default {
     },
     methods: {
         getFriends() {
+            let friendList = []
+
             let promise = this.api.database.listDocuments('friends', [
-                Query.equal('user1', this.user.$id),
-                Query.equal('user2', this.user.$id)
+                Query.equal('user1', this.user.$id)
             ]);
 
             promise.then((response) => {
-                this.friends = response
+                friendList = friendList.concat(response.documents)
+                let promise2 = this.api.database.listDocuments('friends', [
+                    Query.equal('user2', this.user.$id)
+                ]);
+                promise2.then((res) => {
+                    friendList = friendList.concat(res.documents)
+                    this.friends = friendList
+                }, (error) => {
+                    console.log(error);
+                });
             }, (error) => {
                 console.log(error);
             });
+        },
+        async sendFriendRequest() {
+            let { value: username } = await Swal.fire({
+                title: "Type your friend's username",
+                input: 'text',
+                showCancelButton: true,
+                inputValidator: (value) => {
+                    if (!value) {
+                    return 'You need to write something!'
+                    }
+                }
+            })
+            if (username) {
+                let promise = this.api.functions.createExecution('623b5382c84e8ec006ec', username, false);
+
+                promise.then((response) => {
+                    console.log(response);
+                    if (response.status == "failed" ) {
+                        this.popup(response.stderr, "error")
+                    } else {
+                        this.popup(response.stdout, "success")
+                    }
+                }, () => {
+                    this.popup("Error. Please try again.", "error")
+                });
+            }
+        },
+        popup(message, status) {
+            Swal.fire({
+                icon: status,
+                title: message,
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true
+            })
         }
     }
 }

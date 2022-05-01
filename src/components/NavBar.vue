@@ -55,7 +55,6 @@ export default {
             let promise = this.api.account.get();
             promise.then((response) => {
                 this.user = response.email.split("@")[0];
-                console.log(response);
             }, (error) => {
                 console.log(error);
                 this.user = ""
