@@ -121,5 +121,10 @@ img {
     img {
         margin-bottom: 45px;
     }
+
+    .cards {
+        margin-right: 10px;
+        margin-left: 10px;
+    }
 }
 </style>
