@@ -51,7 +51,7 @@ export default {
         getAccount() {
             let promise = this.api.account.get();
             promise.then((response) => {
-                this.user = response.email.split("@")[0];
+                this.user = response.$id;
                 console.log(response);
             }, (error) => {
                 console.log(error);

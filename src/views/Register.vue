@@ -3,6 +3,7 @@
     <h2>Register</h2>
     <RandomQuote/>
     <form @submit.prevent="register" class="text-center">
+        <div class="mb-3"><input v-model="username" class="form-control" type="text" name="username" placeholder="Username" /></div>
         <div class="mb-3"><input v-model="email" class="form-control" type="email" name="email" placeholder="Email" /></div>
         <div class="mb-3"><input v-model="password" class="form-control" type="password" name="password" placeholder="Password" /></div>
         <div class="mb-3"><input v-model="password2" class="form-control" type="password" name="password" placeholder="Repeat password" /></div>
@@ -23,6 +24,7 @@ export default {
   },
   data() {
     return {
+      username: "",
       email: "",
       password: "",
       password2: "",
@@ -31,9 +33,9 @@ export default {
   },
   methods: {
     register() {
-      if (this.email && this.password && this.password2) {
+      if (this.username && this.email && this.password && this.password2) {
         if (this.password == this.password2) {
-          let promise = this.api.account.create('unique()', this.email, this.password);
+          let promise = this.api.account.create(this.username, this.email, this.password);
           promise.then(async () => {
             this.popup("Please verify your email account", "info")
             let promise2 = this.api.account.createSession(this.email, this.password);
