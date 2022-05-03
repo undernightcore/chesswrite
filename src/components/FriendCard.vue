@@ -7,7 +7,6 @@ export default {
     name: "FriendCard",
     props: {
         id: String,
-        name: String,
         status: String
     }
 }

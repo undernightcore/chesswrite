@@ -2,6 +2,9 @@
     <div v-if="user && friends?.length" class="container friends">
         <h2>People you can <span class="principalColor">trust</span></h2>
         <span @click="sendFriendRequest" class="h6 principalColor addFriend"><i class="fa-solid fa-plus"></i> Add new friend</span>
+        <div class="row">
+            
+        </div>
     </div>
     <div v-else-if="friends?.length == 0" class="nofriends">
         <img src="@/assets/alone.svg" class="alone">
