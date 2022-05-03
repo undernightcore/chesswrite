@@ -1,7 +1,9 @@
 <template>
-  <div class="login">
-    <h2>We hare verifying <span class="principalColor">your account...</span></h2>
-  </div>
+    <div class="verifyAccount">
+        <img src="@/assets/verify.svg" class="checking">
+        <h5 class="mt-3">We are verifying <span class="principalColor">your account</span></h5>
+        <h5 class="mt-1 principalColor">Please wait ...</h5>
+    </div>
 </template>
 
 <script>
@@ -15,8 +17,8 @@ export default {
         api: "",
         email: "",
         password: "",
-        userId: $route.query.userId,
-        secret: $route.query.secret
+        userId: this.$route.query.userId,
+        secret: this.$route.query.secret
     }
   },
   created() {
@@ -28,7 +30,7 @@ export default {
   },
   methods: {
     verifying() {
-        let promise = this.api.updateVerification(userId, secret);
+        let promise = this.api.account.updateVerification(this.userId, this.secret);
             promise.then(async () => {
                 this.popup("Account verified successfully", "success")
                 await this.$router.push('/login');
@@ -53,15 +55,16 @@ export default {
 </script>
 
 <style scoped>
-.login {
-  height: 100vh;
-  padding-left: 30%;
-  padding-right: 30%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.verifyAccount {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
-
+.checking {
+    width: 300px;
+}
 @media only screen and (max-width: 768px) {
   .login {
     height: 100vh;
