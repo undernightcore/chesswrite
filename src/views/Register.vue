@@ -36,8 +36,14 @@ export default {
           let promise = this.api.account.create('unique()', this.email, this.password);
           promise.then(async () => {
             this.popup("Please verify your email account", "info")
-            this.api.account.createVerification('http://localhost:8080');
-            this.$router.push('/');
+            let promise2 = this.api.account.createSession(this.email, this.password);
+            promise2.then(async () => {
+              this.api.account.createVerification('http://localhost:8080/verify-account');
+              await this.$router.push('/');
+              setTimeout(() => {
+                this.$router.go()   
+              }, 2000)         
+            });
           }, (error) => {
             this.popup(error.message, "error")
           });
