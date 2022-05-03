@@ -26,6 +26,11 @@ const routes = [
     path: '/friends',
     name: 'Friends',
     component: () => import(/* webpackChunkName: "friends" */ '../views/Friends.vue')
+  },
+  {
+    path: '/friend-requests',
+    name: 'FriendRequests',
+    component: () => import(/* webpackChunkName: "friends" */ '../views/FriendRequests.vue')
   }
 ]
 
