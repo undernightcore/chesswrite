@@ -33,8 +33,9 @@ export default {
         let promise = this.api.account.updateVerification(this.userId, this.secret);
             promise.then(async () => {
                 this.popup("Account verified successfully", "success")
-                await this.$router.push('/login');
-                this.$router.go()  // Success
+                setTimeout(() => {
+                    this.$router.push('/');
+                }, 2000)  // Success
             }, (error) => {
                 this.popup(error.message, "error") // Failure
             });
