@@ -21,6 +21,11 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue')
+  },
+  {
+    path: '/verify-account',
+    name: 'VerifyAccount',
+    component: () => import(/* webpackChunkName: "dashboard" */ '../views/VerifyAccount.vue')
   }
 ]
 
