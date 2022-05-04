@@ -1,5 +1,5 @@
 <template>
-    <div @click="acceptFriendRequest" class="friendCard">
+    <div @click="acceptFriendRequest" class="friendCard" :class="!sent ? 'clickable' : ''">
         <div class="row">
             <div class="col-4">
                 <img src="https://www.ajedrez21.com/17158-home_default/tablero-caoba-importacion.jpg">
@@ -52,6 +52,8 @@ export default {
     box-shadow: 0 30px 80px rgb(0 0 0 / 20%), 0 20px 70px rgb(0 0 0 / 20%);
     border-radius: 15px;
     margin-bottom: 50px;
+}
+.clickable {
     cursor: pointer;
 }
 img {
