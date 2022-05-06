@@ -1,25 +1,25 @@
 <template>
-    <div v-if="user && sendFriends?.length && receivedFriends?.length" class="container friends">
+    <div v-if="user && sentFriends?.length && receivedFriends?.length" class="container friends">
         <h2>People you can <span class="principalColor">trust</span></h2>
         <span @click="sendFriendRequest" class="h6 principalColor toPointer"><i class="fa-solid fa-plus"></i> Add new friend</span>
-        <router-link class="h6 toPointer ms-3" role="button" to="/friend-requests"><i class="fa-solid fa-plus"></i>Go to friend requests</router-link>
+        <router-link class="h6 toPointer ms-3" role="button" to="/friend-requests">Go to friend requests</router-link>
 
         <div class="row">
-            <h3 class="principalColor mt-5">Requests accepted by me</h3>
-            <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3" style="margin-top: 50px;">              
-                <div v-for="s in sendFriends" v-bind:key="s.$id" class="col">
+            <h3 class="principalColor mt-5">Requests accepted by my friends</h3>
+            <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 mt-3">              
+                <div v-for="s in sentFriends" v-bind:key="s.$id" class="col">
                     <FriendCard :id="s.$id" :username="s.user2" status="accepted" :sent="true"/>
                 </div>
             </div>
-            <h3 class="principalColor">Requests accepted by my friends</h3>
-            <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3" style="margin-top: 50px;">
+            <h3 class="principalColor">Requests accepted by me</h3>
+            <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 mt-3">
                 <div v-for="r in receivedFriends" v-bind:key="r.$id" class="col">
                     <FriendCard :id="r.$id" :username="r.user1" status="accepted" :sent="false"/>
                 </div> 
             </div>
         </div>
     </div>
-    <div v-else-if="sendFriends?.length == 0 && receivedFriends?.length == 0" class="nofriends">
+    <div v-else-if="sentFriends?.length == 0 && receivedFriends?.length == 0" class="nofriends">
         <img src="@/assets/alone.svg" class="alone">
         <h5 class="mt-3">Sometimes It's <span class="principalColor">OK</span> to be alone.</h5>
         <h5>But in case you want a  <span class="principalColor">friend</span>.</h5>
@@ -46,7 +46,8 @@ export default {
         promise.then((response) => {
             setTimeout(() => {
                 this.user = response
-                this.getFriends()
+                this.getFriends('user1', 'accepted', true)
+                this.getFriends('user2', 'accepted', false)
             }, 1000)
         }, (error) => {
             setTimeout(() => {
@@ -59,7 +60,7 @@ export default {
         return {
             api: "",
             user: "",
-            sendFriends: null,
+            sentFriends: null,
             receivedFriends: null,
             friends: null
         }
@@ -69,26 +70,17 @@ export default {
         FriendCard
     },
     methods: {
-        getFriends() {
-            let sendFriends = []
-            let receivedFriends = []
-
+        getFriends(column, status, sent) {
             let promise = this.api.database.listDocuments('friends', [
-                Query.equal('user1', this.user.$id)
+                Query.equal(column, this.user.$id),
+                Query.equal('status', status)
             ]);
-
             promise.then((response) => {
-                sendFriends = sendFriends.concat(response.documents)
-                let promise2 = this.api.database.listDocuments('friends', [
-                    Query.equal('user2', this.user.$id)
-                ]);
-                promise2.then((res) => {
-                    receivedFriends = receivedFriends.concat(res.documents)
-                    this.sendFriends = sendFriends
-                    this.receivedFriends = receivedFriends
-                }, (error) => {
-                    console.log(error);
-                });
+                if (sent) {
+                    this.sentFriends = response.documents
+                } else {
+                    this.receivedFriends = response.documents
+                }
             }, (error) => {
                 console.log(error);
             });
@@ -156,9 +148,6 @@ a:hover {
 }
 .alone {
     width: 300px;
-}
-.toPointer {
-    cursor: pointer
 }
 @media only screen and (max-width: 750px) {
     .alone {

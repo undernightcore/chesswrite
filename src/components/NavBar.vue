@@ -11,7 +11,7 @@
                     <li v-if="!user" class="nav-item"><router-link class="nav-link" to="/register">Register</router-link></li>
                     <div class="dropdown" v-if="user"><button class="btn btn-primary dropdown-toggle" aria-expanded="true" data-bs-toggle="dropdown" type="button">Welcome <span class="principalColor">{{user}}</span></button>
                         <div class="dropdown-menu">
-                            <router-link class="dropdown-item" to="/friends">Friend list</router-link>
+                            <router-link class="dropdown-item" to="/friends">Friends</router-link>
                             <a @click="logOut" class="dropdown-item" href="#">Log out</a>
                         </div>
                     </div>
