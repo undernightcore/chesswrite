@@ -1,7 +1,9 @@
 <template>
     <div v-if="user && sendFriends?.length && receivedFriends?.length" class="container friends">
         <h2>People you can <span class="principalColor">trust</span></h2>
-        <span @click="sendFriendRequest" class="h6 principalColor addFriend"><i class="fa-solid fa-plus"></i> Add new friend</span>
+        <span @click="sendFriendRequest" class="h6 principalColor toPointer"><i class="fa-solid fa-plus"></i> Add new friend</span>
+        <router-link class="h6 toPointer ms-3" role="button" to="/friend-requests"><i class="fa-solid fa-plus"></i>Go to friend requests</router-link>
+
         <div class="row">
             <h3 class="principalColor mt-5">Requests accepted by me</h3>
             <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3" style="margin-top: 50px;">              
@@ -21,7 +23,7 @@
         <img src="@/assets/alone.svg" class="alone">
         <h5 class="mt-3">Sometimes It's <span class="principalColor">OK</span> to be alone.</h5>
         <h5>But in case you want a  <span class="principalColor">friend</span>.</h5>
-        <span @click="sendFriendRequest" class="principalColor text-decoration-underline addFriend"><i class="fa-solid fa-plus"></i> Add new friend.</span>
+        <span @click="sendFriendRequest" class="principalColor text-decoration-underline toPointer"><i class="fa-solid fa-plus"></i> Add new friend.</span>
     </div>
     <Loading v-else />
 </template>
@@ -133,6 +135,13 @@ export default {
 </script>
 
 <style scoped>
+a {
+    text-decoration: none;
+    color: #4f5255;
+}
+a:hover {
+    color: #4f5255;
+}
 .friends {
     padding-top: 100px;
     padding-bottom: 100px;
@@ -148,7 +157,7 @@ export default {
 .alone {
     width: 300px;
 }
-.addFriend {
+.toPointer {
     cursor: pointer
 }
 @media only screen and (max-width: 750px) {
