@@ -10,7 +10,10 @@
                     <li v-if="!user" class="nav-item"><router-link class="nav-link active" to="/login">Log in</router-link></li>
                     <li v-if="!user" class="nav-item"><router-link class="nav-link" to="/register">Register</router-link></li>
                     <div class="dropdown" v-if="user"><button class="btn btn-primary dropdown-toggle" aria-expanded="true" data-bs-toggle="dropdown" type="button">Welcome <span class="principalColor">{{user}}</span></button>
-                        <div class="dropdown-menu"><a @click="logOut" class="dropdown-item" href="#">Log out</a></div>
+                        <div class="dropdown-menu">
+                            <router-link class="dropdown-item" to="/friends">Friends</router-link>
+                            <a @click="logOut" class="dropdown-item" href="#">Log out</a>
+                        </div>
                     </div>
                 </ul>
                 <router-link class="btn btn-primary ms-md-2" role="button" to="/dashboard">Play now</router-link>
@@ -52,7 +55,6 @@ export default {
             let promise = this.api.account.get();
             promise.then((response) => {
                 this.user = response.$id;
-                console.log(response);
             }, (error) => {
                 console.log(error);
                 this.user = ""
