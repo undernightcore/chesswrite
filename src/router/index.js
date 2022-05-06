@@ -30,7 +30,17 @@ const routes = [
   {
     path: '/friend-requests',
     name: 'FriendRequests',
-    component: () => import(/* webpackChunkName: "friends" */ '../views/FriendRequests.vue')
+    component: () => import(/* webpackChunkName: "friend-requests" */ '../views/FriendRequests.vue')
+  },
+  {
+    path: '/about',
+    name: 'About',
+    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  },
+  {
+    path: '/verify-account',
+    name: 'VerifyAccount',
+    component: () => import(/* webpackChunkName: "verify-account" */ '../views/VerifyAccount.vue')
   }
 ]
 

@@ -54,7 +54,7 @@ export default {
         getAccount() {
             let promise = this.api.account.get();
             promise.then((response) => {
-                this.user = response.email.split("@")[0];
+                this.user = response.$id;
             }, (error) => {
                 console.log(error);
                 this.user = ""
@@ -104,8 +104,10 @@ export default {
     padding-top: 0px;
     padding-left: 8px;
 }
-
-
+.navbar {
+    background-color: rgba(255, 255, 255, 0.80);    
+    backdrop-filter: blur(8px);
+}
 
 @media only screen and (max-width: 768px) {
     .dropdown .btn {
