@@ -5,7 +5,10 @@
                 <img src="https://www.ajedrez21.com/17158-home_default/tablero-caoba-importacion.jpg">
             </div>
             <div class="col-8">
-                <h5><span v-if="sent">Sent to </span><span v-else>Received from </span><span class="principalColor">{{username}}</span></h5>
+                <h5>
+                    <div v-if="status == 'accepted'">Username: <br> <span class="principalColor">{{username}}</span></div>
+                    <div v-else-if="sent && status == 'pending'">Sent to <br> <span class="principalColor">{{username}}</span></div>
+                    <div v-else-if="!sent && status == 'pending'">Received from <br> <span class="principalColor">{{username}}</span></div></h5>
                 <h6 v-if="status == 'pending' && !sent"><span class="greyText">(Click to accept)</span></h6>
             </div>
         </div>

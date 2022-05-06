@@ -1,12 +1,23 @@
 <template>
-    <div v-if="user && friends?.length" class="container friends">
+    <div v-if="user && sendFriends?.length && receivedFriends?.length" class="container friends">
         <h2>People you can <span class="principalColor">trust</span></h2>
         <span @click="sendFriendRequest" class="h6 principalColor addFriend"><i class="fa-solid fa-plus"></i> Add new friend</span>
         <div class="row">
-            
+            <h3 class="principalColor mt-5">Requests accepted by me</h3>
+            <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3" style="margin-top: 50px;">              
+                <div v-for="s in sendFriends" v-bind:key="s.$id" class="col">
+                    <FriendCard :id="s.$id" :username="s.user2" status="accepted" :sent="true"/>
+                </div>
+            </div>
+            <h3 class="principalColor">Requests accepted by my friends</h3>
+            <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3" style="margin-top: 50px;">
+                <div v-for="r in receivedFriends" v-bind:key="r.$id" class="col">
+                    <FriendCard :id="r.$id" :username="r.user1" status="accepted" :sent="false"/>
+                </div> 
+            </div>
         </div>
     </div>
-    <div v-else-if="friends?.length == 0" class="nofriends">
+    <div v-else-if="sendFriends?.length == 0 && receivedFriends?.length == 0" class="nofriends">
         <img src="@/assets/alone.svg" class="alone">
         <h5 class="mt-3">Sometimes It's <span class="principalColor">OK</span> to be alone.</h5>
         <h5>But in case you want a  <span class="principalColor">friend</span>.</h5>
@@ -19,6 +30,7 @@
 import { Appwrite } from 'appwrite';
 import { Query } from "appwrite";
 import Loading from '@/components/Loading.vue'
+import FriendCard from '@/components/FriendCard.vue'
 import Swal from 'sweetalert2';
 
 export default {
@@ -45,28 +57,33 @@ export default {
         return {
             api: "",
             user: "",
+            sendFriends: null,
+            receivedFriends: null,
             friends: null
         }
     },
     components: {
-        Loading
+        Loading,
+        FriendCard
     },
     methods: {
         getFriends() {
-            let friendList = []
+            let sendFriends = []
+            let receivedFriends = []
 
             let promise = this.api.database.listDocuments('friends', [
                 Query.equal('user1', this.user.$id)
             ]);
 
             promise.then((response) => {
-                friendList = friendList.concat(response.documents)
+                sendFriends = sendFriends.concat(response.documents)
                 let promise2 = this.api.database.listDocuments('friends', [
                     Query.equal('user2', this.user.$id)
                 ]);
                 promise2.then((res) => {
-                    friendList = friendList.concat(res.documents)
-                    this.friends = friendList
+                    receivedFriends = receivedFriends.concat(res.documents)
+                    this.sendFriends = sendFriends
+                    this.receivedFriends = receivedFriends
                 }, (error) => {
                     console.log(error);
                 });
