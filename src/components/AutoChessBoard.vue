@@ -13,7 +13,8 @@ export default {
     data() {
         return {
             board: "",
-            step: 0
+            step: 0,
+            loop: 0
         }
     },
     mounted() {
@@ -25,9 +26,13 @@ export default {
         window.addEventListener("resize", this.board.resize());
         this.moveAndReset()
     },
+    beforeUnmount() {
+        clearInterval(this.loop)
+        window.removeEventListener("resize", this.board.resize())
+    },
     methods: {
         moveAndReset() {
-            setInterval(() => {
+            this.loop = setInterval(() => {
                 this.board.move(this.moves[this.step])
                 if (this.step == this.moves.length) {
                     this.board.start()
