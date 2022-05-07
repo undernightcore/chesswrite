@@ -6,7 +6,7 @@
 
         <div class="row mt-5">
             <div v-if="sentFriends?.length">
-                <h3 class="principalColor mt-5">Requests accepted by my friends</h3>
+                <h3 class="principalColor">Requests accepted by my friends</h3>
                 <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 mt-3">              
                     <div v-for="s in sentFriends" v-bind:key="s.$id" class="col">
                         <FriendCard :id="s.$id" :username="s.user2" status="accepted" :sent="true"/>
