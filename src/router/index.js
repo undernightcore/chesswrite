@@ -23,9 +23,24 @@ const routes = [
     component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue')
   },
   {
+    path: '/friends',
+    name: 'Friends',
+    component: () => import(/* webpackChunkName: "friends" */ '../views/Friends.vue')
+  },
+  {
+    path: '/friend-requests',
+    name: 'FriendRequests',
+    component: () => import(/* webpackChunkName: "friend-requests" */ '../views/FriendRequests.vue')
+  },
+  {
     path: '/about',
     name: 'About',
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  },
+  {
+    path: '/verify-account',
+    name: 'VerifyAccount',
+    component: () => import(/* webpackChunkName: "verify-account" */ '../views/VerifyAccount.vue')
   }
 ]
 
