@@ -1,21 +1,25 @@
 <template>
-    <div v-if="user && sentFriends?.length && receivedFriends?.length" class="container friends">
+    <div v-if="user && (sentFriends?.length || receivedFriends?.length)" class="container friends">
         <h2>People you can <span class="principalColor">trust</span></h2>
         <span @click="sendFriendRequest" class="h6 principalColor toPointer"><i class="fa-solid fa-plus"></i> Add new friend</span>
         <router-link class="h6 toPointer ms-3" role="button" to="/friend-requests">Go to friend requests</router-link>
 
-        <div class="row">
-            <h3 class="principalColor mt-5">Requests accepted by my friends</h3>
-            <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 mt-3">              
-                <div v-for="s in sentFriends" v-bind:key="s.$id" class="col">
-                    <FriendCard :id="s.$id" :username="s.user2" status="accepted" :sent="true"/>
+        <div class="row mt-5">
+            <div v-if="sentFriends?.length">
+                <h3 class="principalColor mt-5">Requests accepted by my friends</h3>
+                <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 mt-3">              
+                    <div v-for="s in sentFriends" v-bind:key="s.$id" class="col">
+                        <FriendCard :id="s.$id" :username="s.user2" status="accepted" :sent="true"/>
+                    </div>
                 </div>
             </div>
-            <h3 class="principalColor">Requests accepted by me</h3>
-            <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 mt-3">
-                <div v-for="r in receivedFriends" v-bind:key="r.$id" class="col">
-                    <FriendCard :id="r.$id" :username="r.user1" status="accepted" :sent="false"/>
-                </div> 
+            <div v-if="receivedFriends?.length">
+                <h3 class="principalColor">Requests accepted by me</h3>
+                <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 mt-3">
+                    <div v-for="r in receivedFriends" v-bind:key="r.$id" class="col">
+                        <FriendCard :id="r.$id" :username="r.user1" status="accepted" :sent="false"/>
+                    </div> 
+                </div>
             </div>
         </div>
     </div>
