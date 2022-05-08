@@ -55,10 +55,10 @@ export default {
 
                     this.subscription = this.api.subscribe(`collections.matches.documents.${this.$route.params.id}`, (data) => {
                         this.game = data.payload.board
-                        if (this.data.payload.status == 'finished') {
+                        if (data.payload.status == 'finished') {
                             Swal.fire(
                                 'The match has just ended',
-                                `Congratulation to ${this.data.payload.winner}!`,
+                                `Congratulation to ${data.payload.winner}!`,
                                 'success'
                             )
                         }
