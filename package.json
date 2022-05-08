@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "appwrite": "^7.0.0",
+    "chess.js": "^0.13.2",
     "chessboardjs-vue": "^1.0.9",
     "core-js": "^3.6.5",
     "sweetalert2": "^11.4.8",
