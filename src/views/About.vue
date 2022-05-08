@@ -20,7 +20,7 @@
                 <div class="col-xxl-2 d-flex flex-column align-items-center justify-content-center"><img src="@/assets/MarcosChess.png"/></div>
                 <div class="col-xxl-10 d-flex flex-column justify-content-center">
                     <h3>Marcos Sesa</h3>
-                    <p>I have always been interested in the world of programming and web design, so when I found some friends who felt the same way as I did, we got down to work. We developed different projects and learned together everything that interested us until today where we continue learning.</p>
+                    <p>I have always been interested in the world of programming and web design, so when I found some friends who felt the same way as I did, we got down to work. We developed different projects and learned together a lot.</p>
                 </div>
             </div>
         </div>
