@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import page404 from '../views/404.vue'
 
 const routes = [
   {
@@ -56,6 +57,15 @@ const routes = [
     path: '/match/:id',
     name: 'Match',
     component: () => import(/* webpackChunkName: "match" */ '../views/Match.vue')
+  },
+  {
+    path: '/404',
+    name: '404',
+    component: page404
+  },
+  {
+    path: '/:catchAll(.*)',
+    redirect: '/404'
   }
 ]
 
