@@ -3,7 +3,7 @@
         <div class="us">
             <h2 class="mb-4">About <span class="principalColor">Us</span></h2>
             <div @click="goLink('https://github.com/undernightcore')" class="row row-cols-1 row-cols-md-2 cards">
-                <div class="col-xxl-2 d-flex flex-column align-items-center justify-content-center"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png"/></div>
+                <div class="col-xxl-2 d-flex flex-column align-items-center justify-content-center"><img src="@/assets/JaviChess.png"/></div>
                 <div class="col-xxl-10 d-flex flex-column justify-content-center">
                     <h3>Javier Martí</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
