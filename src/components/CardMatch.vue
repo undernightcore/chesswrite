@@ -1,12 +1,20 @@
 <template>
-    <div @click="acceptFriendRequest" class="friendCard">
+    <div @click="acceptMatchRequest" class="friendCard">
         <div class="row">
             <div class="col-4">
-                <img  src="@/assets/friend.png">
+                <img v-if="sent && status=='ongoing'" src="@/assets/BlackPeon.png">
+                <img v-if="!sent && status=='ongoing'" src="@/assets/WhitePeon.png">
+                <img v-if="status=='pending'" src="@/assets/waitingMatch.png">
             </div>
             <div class="col-8">
                 <h5>
-                    <div v-if="status == 'accepted'">Username: <br> <span class="principalColor">{{username}}</span></div>
+                    <div v-if="status == 'ongoing'">
+                        Playing against: <br/> <span class="principalColor">{{username}}</span>
+                        <br/>
+                        <hr/>
+                        <span class="principalColor h6" v-if="yourTurn">Your turn</span>
+                        <span class="principalColor h6" v-if="!yourTurn">Your friend's turn</span>
+                    </div>
                     <div v-else-if="sent && status == 'pending'">Sent to <br> <span class="principalColor">{{username}}</span></div>
                     <div v-else-if="!sent && status == 'pending'">Received from <br> <span class="principalColor">{{username}}</span></div></h5>
                     <h6 v-if="status == 'pending' && !sent"><span class="greyText toPointer">(Click to accept)</span></h6>
@@ -19,18 +27,19 @@
 import Swal from 'sweetalert2';
 
 export default {
-    name: "FriendCard",
+    name: "CardMatch",
     props: {
         id: String,
         username: String,
         status: String,
-        sent: Boolean
+        sent: Boolean,
+        yourTurn: Boolean
     },
     methods: {
-        acceptFriendRequest() {
+        acceptMatchRequest() {
             if (this.status == 'pending' && !this.sent) {
                 Swal.fire({
-                    title: 'Accept friend request?',
+                    title: 'Accept match request?',
                     text: "You won't be able to revert this!",
                     icon: 'warning',
                     showCancelButton: true,
@@ -43,7 +52,7 @@ export default {
                     }
                 })
             }
-        }
+        },
     }
 }
 </script>

@@ -2,9 +2,6 @@
     <nav class="navbar navbar-light navbar-expand-md py-3 fixed-top">
         <div class="container">
             <router-link to="/" class="navbar-brand d-flex align-items-center">Chesswrite</router-link>
-            <ul class="navbar-nav">
-                <li class="nav-item"><router-link to="/about" class="nav-link">About</router-link></li>
-            </ul>
             <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navcol-2">
                 <span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span>
             </button>
@@ -16,6 +13,8 @@
                         <div class="dropdown-menu">
                             <router-link class="dropdown-item" to="/friends">Friends</router-link>
                             <router-link class="dropdown-item" to="/friend-requests">Friend requests</router-link>
+                            <router-link class="dropdown-item" to="/dashboard">Matches</router-link>
+                            <router-link class="dropdown-item" to="/match-requests">Match requests</router-link>
                             <a @click="logOut" class="dropdown-item" href="#">Log out</a>
                         </div>
                     </div>
