@@ -1,7 +1,7 @@
 <template>
     <div v-if="user && (sentMatches?.length || receivedMatches?.length)" class="container friends">
         <h2><span class="principalColor">Dashboard</span></h2>
-        <span @click="sendMatchRequest" class="h6 principalColor toPointer"><i class="fa-solid fa-plus"></i> Add new match</span>
+        <router-link class="h6 toPointer ms-3" role="button" to="/create-match">Add new match</router-link>
         <router-link class="h6 toPointer ms-3" role="button" to="/match-requests">Go to match requests</router-link>
 
         <div class="row mt-5">
