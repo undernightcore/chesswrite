@@ -23,6 +23,26 @@ const routes = [
     component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue')
   },
   {
+    path: '/match-requests',
+    name: 'MatchRequests',
+    component: () => import(/* webpackChunkName: "match-requests" */ '../views/MatchRequests.vue')
+  },
+  {
+    path: '/create-match',
+    name: 'CreateMatch',
+    component: () => import(/* webpackChunkName: "create-match" */ '../views/CreateMatch.vue')
+  },
+  {
+    path: '/friends',
+    name: 'Friends',
+    component: () => import(/* webpackChunkName: "friends" */ '../views/Friends.vue')
+  },
+  {
+    path: '/friend-requests',
+    name: 'FriendRequests',
+    component: () => import(/* webpackChunkName: "friend-requests" */ '../views/FriendRequests.vue')
+  },
+  {
     path: '/about',
     name: 'About',
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')

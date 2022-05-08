@@ -1,34 +1,34 @@
 <template>
-    <div v-if="user && (sentMatches?.length || receivedMatches?.length)" class="container friends">
-        <h2><span class="principalColor">Dashboard</span></h2>
-        <span @click="sendMatchRequest" class="h6 principalColor toPointer"><i class="fa-solid fa-plus"></i> Add new match</span>
-        <router-link class="h6 toPointer ms-3" role="button" to="/match-requests">Go to match requests</router-link>
+    <div v-if="user && (sentFriends?.length || receivedFriends?.length)" class="container friends">
+        <h2>People you can <span class="principalColor">trust</span></h2>
+        <span @click="sendFriendRequest" class="h6 principalColor toPointer"><i class="fa-solid fa-plus"></i> Add new friend</span>
+        <router-link class="h6 toPointer ms-3" role="button" to="/friend-requests">Go to friend requests</router-link>
 
         <div class="row mt-5">
-            <div v-if="sentMatches?.length">
-                <h3>Playing <span class="principalColor">white</span></h3>
+            <div v-if="sentFriends?.length">
+                <h3 class="principalColor">Requests accepted by my friends</h3>
                 <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 mt-3">              
-                    <div v-for="s in sentMatches" v-bind:key="s.$id" class="col">
-                        <CardMatch :id="s.$id" :username="s.black" status="ongoing" :sent="false" :yourTurn="(s.turn == 'w' && s.white == user.$id) || (s.turn == 'b' && s.black == user.$id)"/>
+                    <div v-for="s in sentFriends" v-bind:key="s.$id" class="col">
+                        <FriendCard :id="s.$id" :username="s.user2" status="accepted" :sent="true"/>
                     </div>
                 </div>
             </div>
-            <div v-if="receivedMatches?.length">
-                <h3>Playing <span class="principalColor">black</span></h3>
+            <div v-if="receivedFriends?.length">
+                <h3 class="principalColor">Requests accepted by me</h3>
                 <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 mt-3">
-                    <div v-for="r in receivedMatches" v-bind:key="r.$id" class="col">
-                        <CardMatch :id="r.$id" :username="r.white" status="ongoing" :sent="true" :yourTurn="(r.turn == 'w' && r.white == user.$id) || (r.turn == 'b' && r.black == user.$id)"/>
+                    <div v-for="r in receivedFriends" v-bind:key="r.$id" class="col">
+                        <FriendCard :id="r.$id" :username="r.user1" status="accepted" :sent="false"/>
                     </div> 
                 </div>
             </div>
         </div>
     </div>
-    <div v-else-if="sentMatches?.length == 0 && receivedMatches?.length == 0" class="nofriends">
-        <img src="@/assets/noMatches.svg" class="alone">
-        <h5 class="mt-3">There isn't <span class="principalColor">matches</span> to play.</h5>
-        <h5>But in case you want to play a <span class="principalColor">new one</span>.</h5>
-        <router-link role="button" to="/create-match"><span class="principalColor h5 text-decoration-underline">Play new match.</span></router-link>
-        <router-link role="button" to="/match-requests"><span class="h5 text-decoration-underline">Check pending matches.</span></router-link>
+    <div v-else-if="sentFriends?.length == 0 && receivedFriends?.length == 0" class="nofriends">
+        <img src="@/assets/alone.svg" class="alone">
+        <h5 class="mt-3">Sometimes It's <span class="principalColor">OK</span> to be alone.</h5>
+        <h5>But in case you want a  <span class="principalColor">friend</span>.</h5>
+        <span @click="sendFriendRequest" class="principalColor text-decoration-underline toPointer h5"><i class="fa-solid fa-plus"></i> Add new friend.</span>
+        <router-link role="button" to="/friend-requests"><span class="h5 text-decoration-underline">Check friend requests.</span></router-link>
     </div>
     <Loading v-else />
 </template>
@@ -37,11 +37,11 @@
 import { Appwrite } from 'appwrite';
 import { Query } from "appwrite";
 import Loading from '@/components/Loading.vue'
-import CardMatch from '@/components/CardMatch.vue'
+import FriendCard from '@/components/FriendCard.vue'
 import Swal from 'sweetalert2';
 
 export default {
-    name: 'Dashboard',
+    name: 'Friends',
     created() {
         this.api = new Appwrite()
         this.api
@@ -51,8 +51,8 @@ export default {
         promise.then((response) => {
             setTimeout(() => {
                 this.user = response
-                this.getMatches('white', 'ongoing', true)
-                this.getMatches('black', 'ongoing', false)
+                this.getFriends('user1', 'accepted', true)
+                this.getFriends('user2', 'accepted', false)
             }, 1000)
         }, (error) => {
             setTimeout(() => {
@@ -65,25 +65,26 @@ export default {
         return {
             api: "",
             user: "",
-            sentMatches: null,
-            receivedMatches: null
+            sentFriends: null,
+            receivedFriends: null,
+            friends: null
         }
     },
     components: {
         Loading,
-        CardMatch
+        FriendCard
     },
     methods: {
-        getMatches(column, status, sent) {
-            let promise = this.api.database.listDocuments('matches', [
+        getFriends(column, status, sent) {
+            let promise = this.api.database.listDocuments('friends', [
                 Query.equal(column, this.user.$id),
                 Query.equal('status', status)
             ]);
             promise.then((response) => {
                 if (sent) {
-                    this.sentMatches = response.documents
+                    this.sentFriends = response.documents
                 } else {
-                    this.receivedMatches = response.documents
+                    this.receivedFriends = response.documents
                 }
             }, (error) => {
                 console.log(error);
