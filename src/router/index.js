@@ -31,6 +31,11 @@ const routes = [
     path: '/verify-account',
     name: 'VerifyAccount',
     component: () => import(/* webpackChunkName: "dashboard" */ '../views/VerifyAccount.vue')
+  },
+  {
+    path: '/match/:id',
+    name: 'Match',
+    component: () => import(/* webpackChunkName: "match" */ '../views/Match.vue')
   }
 ]
 
