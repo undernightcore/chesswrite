@@ -9,7 +9,7 @@
                 <h3>Playing <span class="principalColor">white</span></h3>
                 <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 mt-3">              
                     <div v-for="s in sentMatches" v-bind:key="s.$id" class="col">
-                        <CardMatch :id="s.$id" :username="s.black" status="ongoing" :sent="true"/>
+                        <CardMatch :id="s.$id" :username="s.black" status="ongoing" :sent="false" :yourTurn="(s.turn == 'w' && s.white == user.$id) || (s.turn == 'b' && s.black == user.$id)"/>
                     </div>
                 </div>
             </div>
@@ -17,7 +17,7 @@
                 <h3>Playing <span class="principalColor">black</span></h3>
                 <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 mt-3">
                     <div v-for="r in receivedMatches" v-bind:key="r.$id" class="col">
-                        <CardMatch :id="r.$id" :username="r.white" status="ongoing" :sent="false"/>
+                        <CardMatch :id="r.$id" :username="r.white" status="ongoing" :sent="true" :yourTurn="(r.turn == 'w' && r.white == user.$id) || (r.turn == 'b' && r.black == user.$id)"/>
                     </div> 
                 </div>
             </div>
@@ -27,7 +27,8 @@
         <img src="@/assets/noMatches.svg" class="alone">
         <h5 class="mt-3">There isn't <span class="principalColor">matches</span> to play.</h5>
         <h5>But in case you want to play a <span class="principalColor">new one</span>.</h5>
-        <router-link role="button" to="/create-match"><span class="principalColor h5 text-decoration-underline"><i class="fa-solid fa-plus"></i>Play new match.</span></router-link>
+        <router-link role="button" to="/create-match"><span class="principalColor h5 text-decoration-underline">Play new match.</span></router-link>
+        <router-link role="button" to="/match-requests"><span class="h5 text-decoration-underline">Check pending matches.</span></router-link>
     </div>
     <Loading v-else />
 </template>

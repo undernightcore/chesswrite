@@ -2,7 +2,7 @@
     <div @click="acceptFriendRequest" class="friendCard">
         <div class="row">
             <div class="col-4">
-                <img src="https://www.ajedrez21.com/17158-home_default/tablero-caoba-importacion.jpg">
+                <img  src="@/assets/friend.png">
             </div>
             <div class="col-8">
                 <h5>

@@ -1,12 +1,20 @@
 <template>
-    <div @click="acceptFriendRequest" class="friendCard">
+    <div @click="acceptMatchRequest" class="friendCard">
         <div class="row">
             <div class="col-4">
-                <img src="https://www.ajedrez21.com/17158-home_default/tablero-caoba-importacion.jpg">
+                <img v-if="sent && status=='ongoing'" src="@/assets/BlackPeon.png">
+                <img v-if="!sent && status=='ongoing'" src="@/assets/WhitePeon.png">
+                <img v-if="status=='pending'" src="@/assets/waitingMatch.png">
             </div>
             <div class="col-8">
                 <h5>
-                    <div v-if="status == 'ongoing'">Username: <br> <span class="principalColor">{{username}}</span></div>
+                    <div v-if="status == 'ongoing'">
+                        Playing against: <br/> <span class="principalColor">{{username}}</span>
+                        <br/>
+                        <hr/>
+                        <span class="principalColor h6" v-if="yourTurn">Your turn</span>
+                        <span class="principalColor h6" v-if="!yourTurn">Your friend's turn</span>
+                    </div>
                     <div v-else-if="sent && status == 'pending'">Sent to <br> <span class="principalColor">{{username}}</span></div>
                     <div v-else-if="!sent && status == 'pending'">Received from <br> <span class="principalColor">{{username}}</span></div></h5>
                     <h6 v-if="status == 'pending' && !sent"><span class="greyText toPointer">(Click to accept)</span></h6>
@@ -24,7 +32,8 @@ export default {
         id: String,
         username: String,
         status: String,
-        sent: Boolean
+        sent: Boolean,
+        yourTurn: Boolean
     },
     methods: {
         acceptMatchRequest() {

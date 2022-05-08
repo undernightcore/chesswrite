@@ -28,6 +28,7 @@
         <h5 class="mt-3">Sometimes It's <span class="principalColor">OK</span> to be alone.</h5>
         <h5>But in case you want a  <span class="principalColor">friend</span>.</h5>
         <span @click="sendFriendRequest" class="principalColor text-decoration-underline toPointer h5"><i class="fa-solid fa-plus"></i> Add new friend.</span>
+        <router-link role="button" to="/friend-requests"><span class="h5 text-decoration-underline">Check friend requests.</span></router-link>
     </div>
     <Loading v-else />
 </template>
