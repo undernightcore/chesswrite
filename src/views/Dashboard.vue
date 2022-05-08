@@ -9,7 +9,7 @@
                 <h3>Playing <span class="principalColor">white</span></h3>
                 <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 mt-3">              
                     <div v-for="s in sentMatches" v-bind:key="s.$id" class="col">
-                        <CardMatch :id="s.$id" :username="s.black" status="ongoing" :sent="false" :yourTurn="(s.turn == 'w' && s.white == user.$id) || (s.turn == 'b' && s.black == user.$id)"/>
+                        <CardMatch @click="goMatch(s.$id)" class="toPointer" :id="s.$id" :username="s.black" status="ongoing" :sent="false" :yourTurn="(s.turn == 'w' && s.white == user.$id) || (s.turn == 'b' && s.black == user.$id)"/>
                     </div>
                 </div>
             </div>
@@ -17,7 +17,7 @@
                 <h3>Playing <span class="principalColor">black</span></h3>
                 <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 mt-3">
                     <div v-for="r in receivedMatches" v-bind:key="r.$id" class="col">
-                        <CardMatch :id="r.$id" :username="r.white" status="ongoing" :sent="true" :yourTurn="(r.turn == 'w' && r.white == user.$id) || (r.turn == 'b' && r.black == user.$id)"/>
+                        <CardMatch @click="goMatch(r.$id)" class="toPointer" :id="r.$id" :username="r.white" status="ongoing" :sent="true" :yourTurn="(r.turn == 'w' && r.white == user.$id) || (r.turn == 'b' && r.black == user.$id)"/>
                     </div> 
                 </div>
             </div>
@@ -114,6 +114,9 @@ export default {
                     this.popup("Error. Please try again.", "error")
                 });
             }
+        },
+        goMatch(id) {
+            this.$router.push("/match/" + id)
         },
         popup(message, status) {
             Swal.fire({
