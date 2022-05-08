@@ -23,6 +23,16 @@ const routes = [
     component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue')
   },
   {
+    path: '/match-requests',
+    name: 'MatchRequests',
+    component: () => import(/* webpackChunkName: "match-requests" */ '../views/MatchRequests.vue')
+  },
+  {
+    path: '/create-match',
+    name: 'CreateMatch',
+    component: () => import(/* webpackChunkName: "create-match" */ '../views/CreateMatch.vue')
+  },
+  {
     path: '/friends',
     name: 'Friends',
     component: () => import(/* webpackChunkName: "friends" */ '../views/Friends.vue')
