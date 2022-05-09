@@ -85,24 +85,19 @@ export default {
     color: black !important;
     padding: 8px;
 }
-
 .dropdown .btn:focus {
     box-shadow: none !important;
 }
-
 .dropdown-menu {
     border: none !important;
 }
-
 .dropdown-item:hover {
     background-color: transparent !important;
-    color: rgba(0,0,0,.55);
+    color: #f02e65 !important;
 }
-
 .dropdown .btn {
     padding: 8px;
 }
-
 .dropdown-menu, .dropdown-item {
     padding-top: 0px;
     padding-left: 8px;
@@ -111,7 +106,6 @@ export default {
     background-color: rgba(255, 255, 255, 0.80);    
     backdrop-filter: blur(8px);
 }
-
 @media only screen and (max-width: 768px) {
     .dropdown .btn {
         padding: 8px 0;

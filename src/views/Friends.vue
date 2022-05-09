@@ -92,6 +92,12 @@ export default {
         },
         async sendFriendRequest() {
             let { value: username } = await Swal.fire({
+                customClass : {
+                    title: 'swal2-title',
+                    cancelButton: 'swal2-cancel',
+                    confirmButton: 'swal2-confirm',
+                    input: 'swal2-input'
+                },
                 title: "Type your friend's username",
                 input: 'text',
                 showCancelButton: true,
