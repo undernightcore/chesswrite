@@ -35,7 +35,7 @@ export default {
     register() {
       if (this.username && this.email && this.password && this.password2) {
         if (this.password == this.password2) {
-          let promise = this.api.account.create(this.username, this.email, this.password);
+          let promise = this.api.account.create(this.username.toLowerCase(), this.email, this.password);
           promise.then(async () => {
             this.popup("Please verify your email account", "info")
             let promise2 = this.api.account.createSession(this.email, this.password);
