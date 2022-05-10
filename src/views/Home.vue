@@ -43,7 +43,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
   html {
     overflow: hidden;
     width: 100%;
