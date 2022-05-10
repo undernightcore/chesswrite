@@ -44,6 +44,18 @@ export default {
 </script>
 
 <style scoped>
+  html {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  body {
+    height: 100%;
+    position: fixed;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+
   .p-col {
     height: 100vh;
     display: flex;
