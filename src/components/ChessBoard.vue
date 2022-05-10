@@ -32,9 +32,6 @@ export default {
         }
         
         this.board = ChessBoard('board', config);
-        this.board.on('scroll touchmove touchend touchstart contextmenu', function(e){
-            e.preventDefault();
-        });
         window.addEventListener("resize", this.board.resize());
     },
     methods: {
