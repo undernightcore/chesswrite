@@ -117,10 +117,16 @@ export default {
 </script>
 
 <style scoped>
-    html, body {
-      margin: 0;
-      height: 100%;
+    html {
       overflow: hidden;
+      width: 100%;
+    }
+
+    body {
+      height: 100%;
+      position: fixed;
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
     }
 
     .match {
