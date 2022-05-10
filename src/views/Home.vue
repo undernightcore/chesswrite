@@ -44,6 +44,12 @@ export default {
 </script>
 
 <style scoped>
+  html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+  }
+
   .p-col {
     height: 100vh;
     display: flex;
