@@ -37,6 +37,8 @@ export default {
 }
 .swal2-confirm {
   background-color: rgb(255, 0, 89) !important;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px #f02e65 !important;
+  border-color: #f02e65 !important;
 }
 .swal2-title {
   font-weight: 400;
@@ -75,6 +77,4 @@ export default {
 .square-h1 {
   border-radius: 0 0 17px 0 !important;
 }
-
-
 </style>
