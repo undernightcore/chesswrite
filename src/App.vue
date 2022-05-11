@@ -65,16 +65,28 @@ export default {
   box-sizing: content-box;
   border-radius: 20px !important;
 }
-.square-a8 {
+.whitePos .square-a8 {
   border-radius: 17px 0 0 0 !important;
 }
-.square-h8 {
+.whitePos .square-h8 {
   border-radius: 0 17px 0 0 !important;
 }
-.square-a1 {
+.whitePos .square-a1 {
   border-radius: 0 0 0 17px !important;
 }
-.square-h1 {
+.whitePos .square-h1 {
   border-radius: 0 0 17px 0 !important;
+}
+.blackPos .square-a8 {
+  border-radius: 0 0 17px 0 !important;
+}
+.blackPos .square-h8 {
+  border-radius: 0 0 0 17px !important;
+}
+.blackPos .square-a1 {
+  border-radius: 0 17px 0 0 !important;
+}
+.blackPos .square-h1 {
+  border-radius: 17px 0 0 0 !important;
 }
 </style>

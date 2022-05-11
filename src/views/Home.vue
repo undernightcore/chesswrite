@@ -2,7 +2,7 @@
   <div class="home container">
     <div class="row g-0 row-cols-1 row-cols-sm-1 row-cols-md-2">
       <div class="col p-col col-a">
-        <AutoChessBoard :moves="moves"/>
+        <AutoChessBoard :moves="moves" class="whitePos"/>
       </div>
       <div class="col p-col col-b">
         <h1>You are not one of those that lose in 3 moves. <span class="principalColor">AREN'T YOU!?</span></h1>
@@ -44,18 +44,6 @@ export default {
 </script>
 
 <style scoped>
-  html {
-    overflow: hidden;
-    width: 100%;
-  }
-
-  body {
-    height: 100%;
-    position: fixed;
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-  }
-
   .p-col {
     height: 100vh;
     display: flex;

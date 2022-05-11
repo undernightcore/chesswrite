@@ -123,18 +123,6 @@ export default {
 </script>
 
 <style scoped>
-    html {
-      overflow: hidden;
-      width: 100%;
-    }
-
-    body {
-      height: 100%;
-      position: fixed;
-      overflow-y: scroll;
-      -webkit-overflow-scrolling: touch;
-    }
-
     .match {
         height: 100vh;
         padding-top: 100px;
