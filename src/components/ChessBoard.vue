@@ -1,5 +1,5 @@
 <template>
-    <div id="board"></div>
+    <div id="board" :class=" orientation == 'black' ? 'blackPos' : 'whitePos' "></div>
 </template>
 
 <script>
@@ -61,7 +61,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped>    
     #board {
         width: 70%;
     }
