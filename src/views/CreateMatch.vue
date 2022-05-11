@@ -88,6 +88,12 @@ export default {
         },
         async sendMatchRequest(id) {
             Swal.fire({
+                customClass : {
+                    title: 'swal2-title',
+                    cancelButton: 'swal2-cancel',
+                    confirmButton: 'swal2-confirm',
+                    input: 'swal2-input'
+                },
                 title: 'Send match request?',
                 text: "You won't be able to revert this!",
                 icon: 'warning',
@@ -116,6 +122,12 @@ export default {
         },
         popup(message, status) {
             Swal.fire({
+                customClass : {
+                    title: 'swal2-title',
+                    cancelButton: 'swal2-cancel',
+                    confirmButton: 'swal2-confirm',
+                    input: 'swal2-input'
+                },
                 icon: status,
                 title: message,
                 toast: true,
