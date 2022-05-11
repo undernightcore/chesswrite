@@ -1,8 +1,8 @@
 <template>
-    <div class="friendRequests">
-        <div v-if="user && (sentRequests?.length || receivedRequests?.length)" class="container friends">
+    <div class="matchRequests">
+        <div v-if="user && (sentRequests?.length || receivedRequests?.length)" class="container matchRequest-container">
             <h2>Pending <span class="principalColor">match requests</span></h2>
-            <router-link class="h6 principalColor toPointer" role="button" to="/friends"><i class="fa-solid fa-plus"></i>Go to friend list</router-link>
+            <router-link class="h6 principalColor toPointer" role="button" to="/dashboard"><i class="fa-solid fa-plus"></i>Go to dashboard</router-link>
             <div v-if="receivedRequests?.length > 0 || sentRequests?.length > 0" class="row mt-5">
                 <div v-if="receivedRequests?.length > 0" class="received">
                     <h2 class="mb-4"><span class="principalColor">Received</span> requests</h2>
@@ -40,7 +40,7 @@ import CardMatch from '@/components/CardMatch.vue'
 import Swal from 'sweetalert2';
 
 export default {
-    name: 'FriendRequests',
+    name: 'MatchRequests',
     created() {
         this.api = new Appwrite()
         this.api
@@ -135,7 +135,7 @@ a {
 a:hover {
     color: #4f5255;
 }
-.friends {
+.matchRequest-container {
     padding-top: 100px;
     padding-bottom: 100px;
     height: 100vh;
@@ -149,9 +149,6 @@ a:hover {
 }
 .door {
     width: 300px;
-}
-.addFriend {
-    cursor: pointer
 }
 @media only screen and (max-width: 750px) {
     .door {

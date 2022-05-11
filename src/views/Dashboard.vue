@@ -1,5 +1,5 @@
 <template>
-    <div v-if="user && (sentMatches?.length || receivedMatches?.length)" class="container friends">
+    <div v-if="user && (sentMatches?.length || receivedMatches?.length)" class="container match-container">
         <h2><span class="principalColor">Dashboard</span></h2>
         <router-link class="h6" role="button" to="/create-match"><span class="principalColor"><i class="fa-solid fa-plus"></i> Add new match</span></router-link>
         <router-link class="h6 ms-3" role="button" to="/match-requests"> Go to match requests</router-link>
@@ -23,7 +23,7 @@
             </div>
         </div>
     </div>
-    <div v-else-if="sentMatches?.length == 0 && receivedMatches?.length == 0" class="nofriends">
+    <div v-else-if="sentMatches?.length == 0 && receivedMatches?.length == 0" class="noMatches">
         <img src="@/assets/noMatches.svg" class="alone">
         <h5 class="mt-3">There isn't <span class="principalColor">matches</span> to play.</h5>
         <h5>But in case you want to play a <span class="principalColor">new one</span>.</h5>
@@ -153,12 +153,12 @@ a {
 a:hover {
     color: #4f5255;
 }
-.friends {
+.match-container {
     padding-top: 100px;
     padding-bottom: 100px;
     height: 100vh;
 }
-.nofriends {
+.noMatches {
     height: 100vh;
     display: flex;
     flex-direction: column;

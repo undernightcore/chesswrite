@@ -1,5 +1,5 @@
 <template>
-    <div @click="acceptMatchRequest" class="friendCard">
+    <div @click="acceptMatchRequest" class="cardMatch">
         <div class="row">
             <div class="col-4">
                 <img v-if="sent && status=='ongoing'" src="@/assets/BlackPeon.png">
@@ -58,7 +58,7 @@ export default {
 </script>
 
 <style scoped>
- .friendCard {
+ .cardMatch {
     padding: 25px;
     box-shadow: 0 30px 80px rgb(0 0 0 / 20%), 0 20px 70px rgb(0 0 0 / 20%);
     border-radius: 15px;
