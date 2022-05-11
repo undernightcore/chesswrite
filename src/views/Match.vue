@@ -1,7 +1,9 @@
 <template>
     <div v-if="user && match" class="match">
         <div class="match-container">
-            <ChessBoard ref="ChessBoard" :game="game" :wrongMove="wrongMove" :orientation="orientation" @pieceMove="movePiece($event)"/>
+            <h5 class="your-turn" v-if="(orientation === 'black' && turn === 'b') || (orientation === 'white' && turn === 'w')">Your turn</h5>
+            <h5 class="not-your-turn" v-else>Waiting for your friend to move...</h5>
+            <ChessBoard ref="ChessBoard" :game="game" :orientation="orientation" @pieceMove="movePiece($event)"/>
         </div>
     </div>
     <Loading v-else/>
@@ -22,7 +24,8 @@ export default {
             match: '',
             game: '',
             orientation: '',
-            subscription: ''
+            subscription: '',
+            turn: ''
         }
     },
     created() {
@@ -37,15 +40,16 @@ export default {
                 let promise = this.api.database.getDocument('matches', this.$route.params.id);
 
                 promise.then((response) => {
+                    this.turn = response.turn
                     this.game = response.board
                     this.match = response.$id
-                    if (response.black == this.user.$id) {
+                    if (response.black === this.user.$id) {
                         this.orientation = 'black'
                     } else {
                         this.orientation = 'white'
                     }
 
-                    if (response.status == "finished") {
+                    if (response.status === "finished") {
                         Swal.fire(
                             'This match is finished',
                             'This is a finished match, go to play now if you want to start a new one',
@@ -55,7 +59,8 @@ export default {
 
                     this.subscription = this.api.subscribe(`collections.matches.documents.${this.$route.params.id}`, (data) => {
                         this.game = data.payload.board
-                        if (data.payload.status == 'finished') {
+                        this.turn = data.payload.turn
+                        if (data.payload.status === 'finished') {
                             Swal.fire(
                                 'The match has just ended',
                                 `Congratulation to ${data.payload.winner}!`,
@@ -83,11 +88,9 @@ export default {
             let moveObject = JSON.stringify({match: this.match, from: move.from, to: move.to})
             let promise = this.api.functions.createExecution('6238d787cfea4d6a6edb', moveObject, false)
             promise.then((response) => {
-                if (response.status == 'failed') {
+                if (response.status === 'failed') {
                     this.$refs.ChessBoard.wrongMove()
                     this.popup(response.stderr, 'error')
-                } else {
-                    this.popup(response.stdout, 'success')
                 }
             }, (error) => {
                 this.popup(error.message, 'error')
@@ -131,8 +134,16 @@ export default {
         text-align: center;
     }
 
+    .your-turn {
+      color: #f02e65;
+    }
+
+    .not-your-turn {
+      color: #4f5255;
+    }
+
     .match-container {
-        width: 50%;
+        width: 40%;
         display: flex;
         flex-direction: column;
         align-items: center;
