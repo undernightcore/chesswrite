@@ -1,5 +1,5 @@
 <template>
-    <div v-if="user && (sentFriends?.length || receivedFriends?.length)" class="container friends">
+    <div v-if="user && (sentFriends?.length || receivedFriends?.length)" class="container createMatch-container">
         <h2>Who do you want <span class="principalColor">play with?</span></h2>
 
         <div class="row mt-5">
@@ -149,7 +149,7 @@ a {
 a:hover {
     color: #4f5255;
 }
-.friends {
+.createMatch-container {
     padding-top: 100px;
     padding-bottom: 100px;
     height: 100vh;
