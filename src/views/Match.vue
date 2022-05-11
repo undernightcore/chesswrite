@@ -61,11 +61,19 @@ export default {
                         this.game = data.payload.board
                         this.turn = data.payload.turn
                         if (data.payload.status === 'finished') {
-                            Swal.fire(
-                                'The match has just ended',
-                                `Congratulation to ${data.payload.winner}!`,
-                                'success'
-                            )
+                            if (data.payload.winner === 'draw') {
+                              Swal.fire(
+                                  'The match has just ended',
+                                  `Well, congratulations to both, you have drawn!`,
+                                  'success'
+                              )
+                            } else {
+                              Swal.fire(
+                                  'The match has just ended',
+                                  `Congratulation to ${data.payload.winner}!`,
+                                  'success'
+                              )
+                            }
                         }
                     })
                 }, () => {
